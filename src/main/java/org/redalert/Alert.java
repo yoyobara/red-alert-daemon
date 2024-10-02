@@ -25,7 +25,12 @@ public class Alert {
     public List<String> cities;
 
     @JsonSetter("time")
-    public LocalDateTime setTheDateTime(int time) {
-        return Instant.ofEpochSecond(time).atZone(ZoneId.systemDefault()).toLocalDateTime();
+    public void setTheDateTime(int time) {
+        this.datetime = Instant.ofEpochSecond(time).atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("{id: %s, datetime: %s, threat: %d, isdrill: %s, cities: %s}", notificationId, datetime, threat, isDrill, cities);
     }
 }
