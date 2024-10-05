@@ -1,5 +1,7 @@
 package org.redalert;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.restassured.RestAssured;
@@ -13,6 +15,10 @@ public class RedNotifier {
 
     private List<RedObserver> observers;
 
+    public RedNotifier() {
+        this.observers = new ArrayList<>();
+    }
+
 
     public void addObserver(RedObserver observer) {
         this.observers.add(observer);
@@ -25,6 +31,8 @@ public class RedNotifier {
                 .statusCode(200)
                 .extract()
                 .as(Alert[].class);
+
+            System.out.println(Arrays.toString(alerts));
 
             if (alerts.length > 0) {
                 for (RedObserver observer : this.observers) {
